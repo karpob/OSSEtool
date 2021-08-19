@@ -1,25 +1,30 @@
 # input.yaml file
 
 locations:
-  template: sat.1330.{y4}{m2}{d2}_{h2}z
- # iso format yyyy-mm-dd hh:mm:ss 
-  reference_time: 2006-06-30 21:00:00
+  template: /gpfsm/dnb32/wjiang/OSSEtool/sat.1330.{y4}{m2}{d2}_{h2}z
+ # if there is only one file, duration is necessary
   duration: 21600
 samplings:
   persist: {extrap: persist_closest}
 
 collections:
    inst30mn_3d_U_Nv: 
-     template: c1440_NR.inst30mn_3d_U_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
-     reference_time: 2006-06-30 21:00:00 
-     frequency: 10800
-   ABC: 
-     template: c1440_NR.ABC.{y4}{m2}{d2}_{h2}{mn2}z.nc4
-     reference_time: 2006-06-30 21:00:00 
-     frequency: 10800
+     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_U_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_U_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   inst30mn_3d_V_Nv: 
+     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_V_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_V_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   inst30mn_3d_T_Nv: 
+     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_T_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_T_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   inst30mn_3d_QV_Nv:
+     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QV_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QV_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   inst30mn_3d_QL_Nv:
+     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QL_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QL_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+
 input_fields:
    - U: {collection: inst30mn_3d_U_Nv, sample: persist}
-#   - A B C: {collection: ABC}
+   - V: {collection: inst30mn_3d_V_Nv, sample: persist}
+   - T: {collection: inst30mn_3d_T_Nv, sample: persist}
+   - QV: {collection: inst30mn_3d_QV_Nv, sample: persist}
+   - QL: {collection: inst30mn_3d_QL_Nv, sample: persist}
 
 output:
   template: sat.1330.{y4}{m2}{d2}_{h2}{mn2}{s2}z.nc4
