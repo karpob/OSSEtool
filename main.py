@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 #
-# module load python/GEOSpyD/Ana2019.03_py3.7
+# module load python/GEOSpyD/Min4.9.2_py3.9 
 #
 # Script for 
-# 1) read require ment from output
+# 1) read requirement from output
 # 2) read times, lats and lons from txt files
-# 2) read variables from a nature run sample Netcdf file given lats, lons and times
+# 2) read variables from nature run sample Netcdf files given lats, lons and times
 # 3) write variable with lats, lons and time to Netcdf file
 # Usage:  
 #
