@@ -43,6 +43,7 @@ def get_two_files_from_tpl(ftpl, time):
    fname = ftpl[last_+1:]
    wild  = fname.replace('{y4}','*').replace('{m2}','*').replace('{d2}','*').replace('{h2}','*').replace('{mn2}','*')
    files = glob.glob(fpath+'/'+wild)
+   files.sort()
    assert files, "cannot find files " + fpath+'/'+wild
    if len(files) == 1:
       files.append('')
