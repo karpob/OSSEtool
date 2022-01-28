@@ -1,35 +1,97 @@
 # input.yaml file
 
 locations:
-  template: /gpfsm/dnb32/wjiang/OSSEtool/sat.1330.{y4}{m2}{d2}_{h2}z
+  template: /discover/nobackup/projects/gmao/obsdev/bkarpowi/osseObsGen/workflow_dawn/dawn_footprints/sub/sat.1330.{y4}{m2}{d2}_{h2}z
  # if there is only one file, duration is necessary
-  duration: 21600
+ #  duration: 21600
 samplings:
   persist: {extrap: persist_closest}
 
 collections:
+   PS_dd:
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_2d_met1_Nx/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_2d_met1_Nx.{y4}{m2}{d2}_{h2}{mn2}z.nc4
    inst30mn_3d_U_Nv: 
-     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_U_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_U_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_U_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_U_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
    inst30mn_3d_V_Nv: 
-     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_V_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_V_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_V_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_V_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
    inst30mn_3d_T_Nv: 
-     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_T_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_T_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
-   inst30mn_3d_QV_Nv:
-     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QV_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QV_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_T_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_T_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+#   inst30mn_3d_QV_Nv:
+#     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QV_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QV_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
    inst30mn_3d_QL_Nv:
-     template: /discover/nobackup/projects/gmao/osse2/pub/css_tmp/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QL_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QL_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
-
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QL_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QL_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   inst30mn_3d_QI_Nv:
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_QI_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_QI_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+#   AIRDENS_dd: 
+#     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_AIRDENS_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_AIRDENS_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   DELP_dd:
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_DELP_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_DELP_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   RH_dd:     
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_RH_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_RH_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   DU001_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_DU001_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_DU001_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   DU002_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_DU002_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_DU002_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   DU003_dd:
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_DU003_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_DU003_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   DU004_dd:
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_DU004_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_DU004_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   DU005_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_DU005_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_DU005_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SS001_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SS001_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SS001_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SS002_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SS002_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SS002_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SS003_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SS003_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SS003_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SS004_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SS004_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SS004_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SS005_dd:  
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SS005_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SS005_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SO2_dd:    
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SO2_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SO2_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   SO4_dd:    
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_SO4_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_SO4_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   BCPHOBIC_dd: 
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_BCPHOBIC_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_BCPHOBIC_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   BCPHILIC_dd: 
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_BCPHILIC_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_BCPHILIC_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   OCPHOBIC_dd: 
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_OCPHOBIC_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_OCPHOBIC_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
+   OCPHILIC_dd: 
+     template: /css/g5nr/Ganymed/7km/c1440_NR/DATA/0.0625_deg/inst/inst30mn_3d_OCPHILIC_Nv/Y{y4}/M{m2}/D{d2}/c1440_NR.inst30mn_3d_OCPHILIC_Nv.{y4}{m2}{d2}_{h2}{mn2}z.nc4
 input_fields:
+   - PS: {collection: PS_dd, sample: persist}
    - U: {collection: inst30mn_3d_U_Nv, sample: persist}
    - V: {collection: inst30mn_3d_V_Nv, sample: persist}
    - T: {collection: inst30mn_3d_T_Nv, sample: persist}
-   - QV: {collection: inst30mn_3d_QV_Nv, sample: persist}
+#   - QV: {collection: inst30mn_3d_QV_Nv, sample: persist}
    - QL: {collection: inst30mn_3d_QL_Nv, sample: persist}
+   - QI: {collection: inst30mn_3d_QI_Nv, sample: persist}
+#   - AIRDENS: {collection: AIRDENS_dd, sample: persist}
+   - DELP: {collection: DELP_dd, sample: persist}
+   - RH: {collection: RH_dd, sample: persist}
+   - DU001: {collection: DU001_dd, sample: persist}
+   - DU002: {collection: DU002_dd, sample: persist}
+   - DU003: {collection: DU003_dd, sample: persist}
+   - DU004: {collection: DU004_dd, sample: persist}
+   - DU005: {collection: DU005_dd, sample: persist}
+   - SS001: {collection: SS001_dd, sample: persist}
+   - SS002: {collection: SS002_dd, sample: persist}
+   - SS003: {collection: SS003_dd, sample: persist}
+   - SS004: {collection: SS004_dd, sample: persist}
+   - SS005: {collection: SS005_dd, sample: persist}
+   - SO2: {collection: SO2_dd, sample: persist}
+   - SO4: {collection: SO4_dd, sample: persist}
+   - BCPHOBIC: {collection: BCPHOBIC_dd, sample: persist}
+   - BCPHILIC: {collection: BCPHILIC_dd, sample: persist}
+   - OCPHOBIC: {collection: OCPHOBIC_dd, sample: persist}
+   - OCPHILIC: {collection: OCPHILIC_dd, sample: persist}
 
 output:
-  template: sat.1330.{y4}{m2}{d2}_{h2}{mn2}{s2}z.nc4
+  template: /discover/nobackup/projects/gmao/obsdev/bkarpowi/osseObsGen/workflow_dawn/sat.1330.{y4}{m2}{d2}_{h2}{mn2}{s2}z.para.2dtst.wPs.nc4
  # iso format yyyy-mm-dd hh:mm:ss 
-  start_time: 2006-06-30 21:00:00
-  end_time:   2006-06-30 21:02:00
-  duration: 60
+  start_time: 2006-06-21 15:00:00
+  end_time:   2006-06-21 21:00:00
+  duration: 21600
 

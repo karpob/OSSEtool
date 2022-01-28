@@ -42,7 +42,7 @@ def get_two_files_from_tpl(ftpl, time):
 
    fname = ftpl[last_+1:]
    wild  = fname.replace('{y4}','*').replace('{m2}','*').replace('{d2}','*').replace('{h2}','*').replace('{mn2}','*')
-   files = glob.glob(fpath+'/'+wild)
+   files = glob.glob(fpath+'/'+wild) 
    files.sort()
    assert files, "cannot find files " + fpath+'/'+wild
    if len(files) == 1:
@@ -93,14 +93,15 @@ def read_sat_data(collection, start_time, end_time):
    #here collection is locations
    k = get_file_numbers(collection, start_time, end_time)
    duration = get_duration(collection, start_time)
-
    lats = []
    lons = []
    seconds_increase = []
 
    for i in range(k):
-      sat_fname = get_pre_filename(collection, start_time + i*duration)
-      print("\nReading satellit data file "+sat_fname) 
+      # satellite tracks start 3 hours prior
+      
+      sat_fname = get_pre_filename(collection, start_time + timedelta(hours=3) + i*duration)
+      print("\nReading satellite track data file "+sat_fname) 
       fin = open(sat_fname,'r')
       for j , line in enumerate(fin):
          data = line.split()
@@ -128,14 +129,18 @@ def read_vars_from_collection(var_names, collection, start_time, end_time, lats,
    fname = get_pre_filename(collection, start_time)
    time_ = get_time_from_filename(collection['template'], fname)
    offset = (start_time - time_).total_seconds()
-
+   
    fh = Dataset(fname,mode='r')
-   n_level = fh.dimensions['lev'].size
+   if('lev' in fh.dimensions.keys()):
+      n_level = fh.dimensions['lev'].size
+   else:
+      n_level = 1
    n_lat = fh.dimensions['lat'].size
    n_lon = fh.dimensions['lon'].size
    dlat = 180.0/n_lat
    dlon = 360.0/n_lon
    fh.close()
+
    var = np.ndarray(shape=(n_level, len(lats)))
 
    k0 = 0
@@ -154,15 +159,22 @@ def read_vars_from_collection(var_names, collection, start_time, end_time, lats,
       Js =((np.array(lons[k0:k1])+180.0)/dlon).astype('int32')
       var_list = var_names.split()
       vars_str = ' '.join([vname for vname in var_list])
-      print("\nReading (" + vars_str + ") from " + fname) 
+      whir = ' start {} end {} time {}'.format(start_time,end_time,time_)
+      print("\nReading (" + vars_str + ") from " + fname+whir) 
       for var_name in var_list:
-         var_in = fh.variables[var_name][:, :, :, :]
-         for ki in range(len(Is)):
+        if(n_level>1):
+          var_in = fh.variables[var_name][:, :, :, :]
+        else:
+          var_in = fh.variables[var_name][:,:,:]
+        for ki in range(len(Is)):
+          if(n_level>1):
             var[:,k0+ki] = var_in[0,:,Is[ki],Js[ki]]
+          else:
+            var[:,k0+ki] = var_in[0,Is[ki],Js[ki]]
+            
       # this last file
       if (i == k-1) : 
          var_dict[var_name] = (n_level, var, fh.variables[var_name].__dict__)
-
       fh.close()
       k0 = k1
       time_  = time_ + duration
@@ -170,28 +182,53 @@ def read_vars_from_collection(var_names, collection, start_time, end_time, lats,
 def write_variables(fname, start_time, var_dict, lats, lons, seconds_increase):
 
    fh = Dataset(fname, 'w', format='NETCDF4')
-   index  = fh.createDimension('index', len(lats))
+   index  = fh.createDimension('time', len(lats))
    val_ = next(iter(var_dict.values()))
-   level = fh.createDimension('lev', val_[0])
+   if(val_[0]>1):
+      vv = val_[0]
+   else:
+      vv = 72
+   level = fh.createDimension('lev', vv)
+   levs = fh.createVariable('lev', np.int, ('lev',))
+   levs[:] = np.arange(1,vv+1)
 
-   second_ = fh.createVariable('seconds_increase', np.float32, ('index',))
+   ls_ = fh.createDimension('ls',19)
+
+   second_ = fh.createVariable('time', np.float32, ('time',))
    second_[:] = seconds_increase[:]
    time_stamp = start_time.strftime('%s-%02d-%02d %02d:%02d:%02d'%(start_time.year, \
                 start_time.month,start_time.day,start_time.hour, start_time.minute, start_time.second))
    second_.units = "seconds since " + time_stamp
    second_.long_name = " seconds_increment" ;
+   tyme = []
+   for sss in seconds_increase:
+      tyme.append(start_time+timedelta(seconds=sss))
+   
+   isotime = fh.createVariable('isotime','S1',('time','ls'))
+   isotime.long_name = 'Time (ISO Format)'
+   isotmp = np.zeros((len(lons),19),dtype='S1')
+   for i in range(len(lons)):
+      isotmp[i][:] = list(tyme[i].isoformat())
+   isotime[:] = isotmp[:]
 
-   lats_  = fh.createVariable('lat', np.float32, ('index',))
+
+   lats_  = fh.createVariable('trjLat', np.float32, ('time',))
    lats_.long_name = "latitude" ;
    lats_.units = "degrees_north" ;
-   lons_  = fh.createVariable('lon', np.float32, ('index',))
+   lons_  = fh.createVariable('trjLon', np.float32, ('time',))
    lons_.long_name = "longitude" ;
    lons_.units = "degrees_east" ;
 
    for key, value in var_dict.items():
-      value_ = fh.createVariable(key, np.float32, ('lev','index',))
-      value_.setncatts(value[2])
-      value_[:,:] = value[1][:,:]
+      if(value[0]>1):
+        value_ = fh.createVariable(key, np.float32, ('time','lev',))
+        value_.setncatts(value[2])
+        value_[:,:] = value[1][:,:].T
+      else:
+        value_ = fh.createVariable(key, np.float32, ('time',))
+        value_.setncatts(value[2])
+        value_[:] = value[1][0,:]
+       
 
    lats_[:] =lats[:]
    lons_[:] =lons[:]

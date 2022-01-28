@@ -25,6 +25,7 @@ if __name__ == '__main__' :
    # driven by output
    start_time = datetime.fromisoformat(str(config['output']['start_time']))
    end_time   = datetime.fromisoformat(str(config['output']['end_time']))
+   #out_duration = end_time-start_time
    out_duration = timedelta(seconds = int(config['output']['duration']))
 
    while ( start_time < end_time):
@@ -45,14 +46,33 @@ if __name__ == '__main__' :
            process = mp.Process(target = read_vars_from_collection,  \
                                args=(var_names, collection_, start_time, end_time_, lats, lons, seconds_increase, var_dict))
            processes.append(process)
-           process.start()
-
-     print("\nWaiting for reading....")
-     for process in processes :
-        process.join()
-
+           #process.start()
+     print("\nChunking....")
+     nthreads = 15
+     chunks = []
+     chunk = []
+     ii=0
+     for p in processes:
+        if(ii<nthreads):
+           chunk.append(p)
+           ii +=1
+        else:
+           chunk.append(p)
+           chunks.append(chunk)
+           chunk = []
+           ii=0
+     if(len(chunk)!=0):
+        chunks.append(chunk)
+     for c in chunks:
+        for ip,p in enumerate(c):
+           print("starting thread {}".format(ip))
+           p.start()
+        for ip,p in enumerate(c):
+           p.join()
+           print("finished thread {}".format(ip))
+        print("next chunk")      
      # write out variables
-     out_fname = get_filename_from_tpl(config['output']['template'], start_time)
+     out_fname = get_filename_from_tpl(config['output']['template'], start_time + timedelta(hours=3) )
      print("Writing " + out_fname)
      write_variables(out_fname, start_time, var_dict, lats, lons, seconds_increase)
 

@@ -2,11 +2,12 @@
 
 #SBATCH --output=OSSEtool_log.txt
 #SBATCH --error=OSSEtool_err.txt
-#SBATCH --account=s1873
+#SBATCH --account=s0818
 #SBATCH --time=01:00:00
 #SBATCH --nodes=1 --ntasks-per-node=40
 #SBATCH --job-name=OSSEtool
-#SBATCH --constraint=sky
+#SBATCH --constraint="cas&cssro"
+##SBATCH --constraint=sky
 #SBATCH --qos=debug
 
 umask 022
